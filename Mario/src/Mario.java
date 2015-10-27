@@ -22,6 +22,11 @@ public class Mario extends GameObject {
 
 	public void move(int direction) {
 		// 0 for left 1 for right
+		if (direction == 1) {
+			this.setLocation(this.getX() + 10, this.getY());
+		} else {
+			this.setLocation(this.getX() - 10, this.getY());
+		}
 	}
 	
 	
