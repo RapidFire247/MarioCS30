@@ -29,5 +29,10 @@ public class Mario extends GameObject {
 		}
 	}
 	
+	public void duck() {
+		
+	}
+	
+	
 	
 }

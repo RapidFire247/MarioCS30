@@ -61,9 +61,10 @@ public class GameWindow extends JFrame {
 		gameStage.setSize(getWidth(), getHeight());
 		gameStage.setVisible(true);
 		gameStage.setBackground(Color.RED);
+		
 		// Add a button to panel
 		JButton menuButton = new JButton("Menu");
-//		menuButton.setBounds(x, y, width, height);
+		menuButton.setBounds(10, 10, 100, 50);
 		menuButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

@@ -1,8 +1,10 @@
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 
 
-public class GameObject extends JPanel {
+
+
+public class GameObject extends JLabel {
 	
 	/**
 	 * 
