@@ -1,19 +1,31 @@
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class GameWindow extends JFrame {
+public class GameWindow extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	boolean moveLeft, moveRight;
+	Mario mario = new Mario();
+	Timer animateTimer;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -32,50 +44,50 @@ public class GameWindow extends JFrame {
 
 	// constructor
 	public GameWindow() {
-		setBounds(100, 100, 1500, 800);
+		setBounds(0, 0, 1500, 800);
 		setTitle("Super Mario Bros.");
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setSize(this.getWidth(), this.getHeight());
+		getContentPane().setPreferredSize(getSize());
+		this.pack();
 		getContentPane().setLayout(new CardLayout()); // <- JPanel
 		// Create a new JPanel
-		JPanel startStage = new JPanel();
-		startStage.setSize(getWidth(), getHeight());
-		startStage.setVisible(true);
-		startStage.setBackground(Color.BLUE);
-		// Add a button to panel
-		JButton playButton = new JButton("Play");
-		playButton.setBackground(Color.CYAN);
-		playButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				((CardLayout) getContentPane().getLayout()).show(
-						getContentPane(), "game");
-			}
-		});
-		startStage.add(playButton);
-		add(startStage, "start"); // put stage in window
+//		JPanel startStage = new JPanel();
+//		startStage.setSize(getWidth(), getHeight());
+//		startStage.setVisible(true);
+//		startStage.setBackground(Color.BLUE);
+//		// Add a button to panel
+//		JButton playButton = new JButton("Play");
+//		playButton.setBackground(Color.CYAN);
+//		playButton.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				((CardLayout) getContentPane().getLayout()).show(
+//						getContentPane(), "game");
+//			}
+//		});
+//		startStage.add(playButton);
+//		add(startStage, "start"); // put stage in window
 		// Create a new JPanel
-		JPanel gameStage = new JPanel();
-		gameStage.setLayout(null);
-		gameStage.setSize(getWidth(), getHeight());
-		gameStage.setVisible(true);
-		gameStage.setBackground(Color.RED);
+		GameScreen gameStage = new GameScreen(this);
+	
 		
-		// Add a button to panel
-		JButton menuButton = new JButton("Menu");
-		menuButton.setBounds(10, 10, 100, 50);
-		menuButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				((CardLayout) getContentPane().getLayout()).show(
-						getContentPane(), "start");
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("animate")) {
+			if (moveLeft) {
+				mario.moveLeft();
 			}
-		});
-		gameStage.add(menuButton);
-		add(gameStage, "game"); // put stage in window
-		Mario mario = new Mario();
-		gameStage.add(mario);
+			if (moveRight) {
+				mario.moveRight();
+			}
+		}
+		
 	}
 
 }

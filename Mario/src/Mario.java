@@ -1,5 +1,7 @@
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
+
 public class Mario extends GameObject {
 
 	/**
@@ -9,25 +11,24 @@ public class Mario extends GameObject {
 	boolean isSuperMario;
 	boolean isFireMario;
 	boolean isDead;
+	public int jumpStrength = -15;
+	boolean isJumping = false;
 	
 	public Mario() {
 		this.setVisible(true);
-		this.setBounds(300, 200, 10, 15);
-		this.setBackground(Color.YELLOW);
+		this.setBounds(300, 700, 33, 44); 
+		this.setIcon(new ImageIcon("H:\\Mario\\bigMarioStandRight.png"));
+		//this.setOpaque(true);
 	}
 
+	
 	public void jump() {
-
+		if (isJumping == false) {
+			velocity = jumpStrength;
+		} 
+		isJumping = true;
 	}
 
-	public void move(int direction) {
-		// 0 for left 1 for right
-		if (direction == 1) {
-			this.setLocation(this.getX() + 10, this.getY());
-		} else {
-			this.setLocation(this.getX() - 10, this.getY());
-		}
-	}
 	
 	public void duck() {
 		

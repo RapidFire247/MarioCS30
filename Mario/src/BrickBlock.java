@@ -1,3 +1,5 @@
+import javax.swing.ImageIcon;
+
 
 public class BrickBlock extends Structures {
 
@@ -8,5 +10,7 @@ public class BrickBlock extends Structures {
 
 	public BrickBlock() {
 		
+		this.setVisible(true);
+		this.setIcon(new ImageIcon("H:\\Mario\\brickBlock.png"));
 	}
 }
