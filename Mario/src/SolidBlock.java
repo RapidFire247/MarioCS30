@@ -1,15 +1,16 @@
 import javax.swing.ImageIcon;
 
 
-public class BrickBlock extends Block {
+public class SolidBlock extends Block {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BrickBlock() {
+	SolidBlock() {
 		super();
-		this.setIcon(new ImageIcon("H:\\Mario\\brickBlock.png"));
+	//	this.setIcon(new ImageIcon(""));
 	}
+	
 }

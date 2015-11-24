@@ -12,11 +12,11 @@ public class Mario extends GameObject {
 	boolean isFireMario;
 	boolean isDead;
 	public int jumpStrength = -15;
-	boolean isJumping = false;
+	boolean isJumping = true;
 	
 	public Mario() {
 		this.setVisible(true);
-		this.setBounds(300, 700, 33, 44); 
+		this.setBounds(300, 500, 33, 44); 
 		this.setIcon(new ImageIcon("H:\\Mario\\bigMarioStandRight.png"));
 		//this.setOpaque(true);
 	}

@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,21 +18,21 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 	Mario mario = new Mario();
 	Timer animateTimer;
 	GameWindow gw;
-	LevelFloor lf = new LevelFloor();
+	private ArrayList<LevelFloorBlock> blocks = new ArrayList<LevelFloorBlock>();
 
 	GameScreen(GameWindow gw) {
 		this.gw = gw;
 		this.setLayout(null);
-		this.setSize(gw.getContentPane().getWidth(), gw.getContentPane().getHeight());
+		this.setSize(gw.getContentPane().getWidth(), gw.getContentPane()
+				.getHeight());
 		this.setVisible(true);
-		//this.setBackground(Color.RED);
+		// this.setBackground(Color.RED);
 		this.addKeyListener(this);
 		gw.add(this, "game"); // put stage in window
 		this.add(mario);
 		this.setFocusable(true);
 		this.setFocusTraversalKeysEnabled(false);
-		//this.requestFocusInWindow();
-
+		// this.requestFocusInWindow();
 
 		// Add a button to panel
 		JButton menuButton = new JButton("Menu");
@@ -44,10 +45,20 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			}
 		});
 		this.add(menuButton);
+		// lf.setBounds(this.getX(), this.getHeight() - lf.getHeight(),
+		// lf.getWidth(), lf.getHeight());
+		// this.add(lf);
+		int lfTemp = 0;
+		for (int i = 0; i < 20; i++) {
+			LevelFloorBlock lf = new LevelFloorBlock();
+			lf.setBounds(this.getX() + lfTemp,
+					this.getHeight() - lf.getHeight(), lf.getWidth(),
+					lf.getHeight());
+			this.add(lf);
+			blocks.add(lf);
+			lfTemp += lf.getWidth();
+		}
 
-		lf.setBounds(this.getX(), this.getHeight() - lf.getHeight(), lf.getWidth(), lf.getHeight());
-		this.add(lf);
-		
 		animateTimer = new Timer(1000 / 40, this);
 		animateTimer.setActionCommand("animate");
 		animateTimer.start();
@@ -67,23 +78,29 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				mario.setLocation(mario.getX(), mario.getY() + mario.velocity);
 			}
 			// apply gravity
-			if (mario.collidesWith(lf)) {
-				mario.isJumping = false;
-				mario.setLocation(mario.getX(), lf.getY() - mario.getHeight());
-			} else {
-				mario.velocity += GameObject.GRAVITY;
+			for (int j = 0; j < blocks.size(); j++) {
+
+				if (mario.collidesWith(blocks.get(j))) {
+					mario.isJumping = false;
+					mario.setLocation(mario.getX(), blocks.get(j).getY()
+							- mario.getHeight());
+				}
 			}
+			 if (mario.isJumping) {
+				 mario.velocity += GameObject.GRAVITY; 
+			 }
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		//System.out.println("key pressed");
+		// System.out.println("key pressed");
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			moveLeft = true;
 		} else if (e.getKeyCode() == KeyEvent.VK_D) {
 			moveRight = true;
-		//	mario.setIcon(new ImageIcon("H:\\Mario\\bigMarioStandActual.png"));
+			// mario.setIcon(new
+			// ImageIcon("H:\\Mario\\bigMarioStandActual.png"));
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
 			mario.jump();
 		}
