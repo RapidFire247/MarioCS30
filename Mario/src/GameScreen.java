@@ -78,7 +78,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("key pressed");
+		//System.out.println("key pressed");
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			moveLeft = true;
 		} else if (e.getKeyCode() == KeyEvent.VK_D) {
