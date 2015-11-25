@@ -23,7 +23,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 	GameScreen(GameWindow gw) {
 		this.gw = gw;
 		this.setLayout(null);
-		this.setSize(gw.getContentPane().getWidth(), gw.getContentPane()
+		this.setSize(10000, gw.getContentPane()
 				.getHeight());
 		this.setVisible(true);
 		// this.setBackground(Color.RED);
@@ -49,7 +49,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		// lf.getWidth(), lf.getHeight());
 		// this.add(lf);
 		int lfTemp = 0;
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 100; i++) {
 			LevelFloorBlock lf = new LevelFloorBlock();
 			lf.setBounds(this.getX() + lfTemp,
 					this.getHeight() - lf.getHeight(), lf.getWidth(),
@@ -70,9 +70,11 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			// move mario
 			if (moveLeft) {
 				mario.moveLeft();
+				this.setLocation(this.getX() + 10, this.getY());
 			}
 			if (moveRight) {
 				mario.moveRight();
+				this.setLocation(this.getX() - 10, this.getY());
 			}
 			if (mario.velocity != 0) {
 				mario.setLocation(mario.getX(), mario.getY() + mario.velocity);
