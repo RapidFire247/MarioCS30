@@ -1,5 +1,5 @@
 
-public class Structures extends GameObject{
+public class Structures extends GameObject {
 
 	/**
 	 * 
