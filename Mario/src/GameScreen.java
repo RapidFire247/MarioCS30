@@ -61,7 +61,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		animateTimer = new Timer(1000 / 40, this);
 		animateTimer.setActionCommand("animate");
 		animateTimer.start();
-		marioIconChangeTimer = new Timer(1000 / 7, this);
+		marioIconChangeTimer = new Timer(1000 / 10, this);
 		marioIconChangeTimer.setActionCommand("marioIconChange");
 		marioIconChangeTimer.start();
 
@@ -78,6 +78,12 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				if (mario.getX() <= gw.getWidth() / 4) {
 					this.setLocation(this.getX() + 10, this.getY());
 				}
+				if (mario.getIcon().toString()
+						.equals("H:\\Mario\\littleMarioStandRight.png")) {
+					mario.setIcon(new ImageIcon(
+							"H:\\Mario\\littleMarioStandLeft.png"));
+					mario.setSize(24, 32);
+				}
 				// mario.setIcon(new
 				// ImageIcon("H:\\Mario\\littleMarioStartWalkLeft.png"));
 				// mario.setIcon(new
@@ -91,8 +97,12 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				if (mario.getX() >= gw.getWidth() / 2) {
 					this.setLocation(this.getX() - 10, this.getY());
 				}
-				mario.setIcon(new ImageIcon(
-						"H:\\Mario\\littleMarioStandRight.png"));
+				if (mario.getIcon().toString()
+						.equals("H:\\Mario\\littleMarioStandLeft.png")) {
+					mario.setIcon(new ImageIcon(
+							"H:\\Mario\\littleMarioStandRight.png"));
+					mario.setSize(24, 32);
+				}
 			}
 			if (mario.velocity != 0) {
 				mario.setLocation(mario.getX(), mario.getY() + mario.velocity);
@@ -116,18 +126,45 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 						.equals("H:\\Mario\\littleMarioStandLeft.png")) {
 					mario.setIcon(new ImageIcon(
 							"H:\\Mario\\littleMarioStartWalkLeft.png"));
+					mario.setSize(24, 32);
 				} else if (mario.getIcon().toString()
 						.equals("H:\\Mario\\littleMarioStartWalkLeft.png")) {
 					mario.setIcon(new ImageIcon(
 							"H:\\Mario\\littleMarioMidWalkLeft1.png"));
+					mario.setSize(22, 30);
 				} else if (mario.getIcon().toString()
 						.equals("H:\\Mario\\littleMarioMidWalkLeft1.png")) {
 					mario.setIcon(new ImageIcon(
 							"H:\\Mario\\littleMarioMidWalkLeft2.png"));
+					mario.setSize(32, 32);
 				} else if (mario.getIcon().toString()
 						.equals("H:\\Mario\\littleMarioMidWalkLeft2.png")) {
 					mario.setIcon(new ImageIcon(
 							"H:\\Mario\\littleMarioStartWalkLeft.png"));
+					mario.setSize(24, 32);
+				}
+			}
+			if (moveRight) {
+				if (mario.getIcon().toString()
+						.equals("H:\\Mario\\littleMarioStandRight.png")) {
+					mario.setIcon(new ImageIcon(
+							"H:\\Mario\\littleMarioStartWalkRight.png"));
+					mario.setSize(24, 32);
+				} else if (mario.getIcon().toString()
+						.equals("H:\\Mario\\littleMarioStartWalkRight.png")) {
+					mario.setIcon(new ImageIcon(
+							"H:\\Mario\\littleMarioMidWalkRight1.png"));
+					mario.setSize(22, 30);
+				} else if (mario.getIcon().toString()
+						.equals("H:\\Mario\\littleMarioMidWalkRight1.png")) {
+					mario.setIcon(new ImageIcon(
+							"H:\\Mario\\littleMarioMidWalkRight2.png"));
+					mario.setSize(32, 32);
+				} else if (mario.getIcon().toString()
+						.equals("H:\\Mario\\littleMarioMidWalkRight2.png")) {
+					mario.setIcon(new ImageIcon(
+							"H:\\Mario\\littleMarioStartWalkRight.png"));
+					mario.setSize(24, 32);
 				}
 			}
 		}
@@ -152,9 +189,11 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			moveLeft = false;
 			mario.setIcon(new ImageIcon("H:\\Mario\\littleMarioStandLeft.png"));
+			mario.setSize(24, 32);
 		} else if (e.getKeyCode() == KeyEvent.VK_D) {
 			moveRight = false;
 			mario.setIcon(new ImageIcon("H:\\Mario\\littleMarioStandRight.png"));
+			mario.setSize(24, 32);
 		}
 	}
 
