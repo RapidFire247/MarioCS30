@@ -17,9 +17,10 @@ public class Mario extends GameObject {
 	public Mario() {
 		this.setVisible(true);
 		this.setBounds(300, 500, 24, 32); 
-		this.setIcon(new ImageIcon("H:\\Mario\\littleMarioStandRight.png"));
+		this.setIcon(new ImageIcon("D:\\Mario\\littleMarioStandRight.png"));
 		//this.setOpaque(true);
 	}
+	
 
 	
 	public void jump() {

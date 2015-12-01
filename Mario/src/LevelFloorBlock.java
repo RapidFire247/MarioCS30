@@ -15,7 +15,7 @@ public class LevelFloorBlock extends Block {
 		super();
 		this.setBackground(Color.BLUE);
 		this.setOpaque(true);
-		this.setIcon(new ImageIcon("H:\\Mario\\levelFloorBlock.png"));
+		this.setIcon(new ImageIcon("D:\\Mario\\levelFloorBlock.png"));
 
 	}
 }
