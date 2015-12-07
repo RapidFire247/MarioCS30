@@ -1,5 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -24,6 +26,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		this.gw = gw;
 		this.setLayout(null);
 		this.setSize(10000, gw.getContentPane().getHeight());
+		this.setPreferredSize(new Dimension(10000, gw.getContentPane().getHeight()));
 		this.setVisible(true);
 		this.setBackground(Color.CYAN);
 		this.addKeyListener(this);
@@ -45,9 +48,6 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			}
 		});
 		this.add(menuButton);
-		// lf.setBounds(this.getX(), this.getHeight() - lf.getHeight(),
-		// lf.getWidth(), lf.getHeight());
-		// this.add(lf);
 		int lfTemp = 0;
 		for (int i = 0; i < 100; i++) {
 			LevelFloorBlock lf = new LevelFloorBlock();
@@ -77,8 +77,8 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				if (moveLeft
 						|| mario.getIcon().toString()
 								.equals(mario.LITTLESTANDLEFT.toString())) {
-					if (mario.getX() <= gw.getWidth() / 4) {
-						this.setLocation(this.getX() + 10, this.getY());
+					if (mario.getX() <= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 4) {
+						this.gw.scrollPane.getViewport().setViewPosition(new Point((int) this.gw.scrollPane.getViewport().getViewPosition().getX() - 10, 0));
 					}
 					mario.setIcon(mario.LITTLEJUMPLEFT);
 					mario.setSize(32, 30);
@@ -87,8 +87,8 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				if (moveRight
 						|| mario.getIcon().toString()
 								.equals(mario.LITTLESTANDRIGHT.toString())) {
-					if (mario.getX() >= gw.getWidth() / 2) {
-						this.setLocation(this.getX() - 10, this.getY());
+					if (mario.getX() >= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 2) {
+						this.gw.scrollPane.getViewport().setViewPosition(new Point((int) this.gw.scrollPane.getViewport().getViewPosition().getX() + 10, 0));
 					}
 					mario.setIcon(mario.LITTLEJUMPRIGHT);
 					mario.setSize(32, 30);
@@ -96,26 +96,20 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			}
 			if (moveLeft) {
 				mario.moveLeft();
-				if (mario.getX() <= gw.getWidth() / 4) {
-					this.setLocation(this.getX() + 10, this.getY());
+				if (mario.getX() <= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 4) {
+					this.gw.scrollPane.getViewport().setViewPosition(new Point((int) this.gw.scrollPane.getViewport().getViewPosition().getX() - 10, 0));
 				}
 				if (mario.getIcon().toString()
 						.equals(mario.LITTLESTANDRIGHT.toString())) {
 					mario.setIcon(mario.LITTLESTANDLEFT);
 					mario.setSize(24, 32);
 				}
-				// mario.setIcon(new
-				// ImageIcon("H:\\Mario\\littleMarioStartWalkLeft.png"));
-				// mario.setIcon(new
-				// ImageIcon("H:\\Mario\\littleMarioMidWalkLeft1.png"));
-				// mario.setIcon(new
-				// ImageIcon("H:\\Mario\\littleMariMidWalkLeft2.png"));
 
 			}
 			if (moveRight) {
 				mario.moveRight();
-				if (mario.getX() >= gw.getWidth() / 2) {
-					this.setLocation(this.getX() - 10, this.getY());
+				if (mario.getX() >= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 2) {
+					this.gw.scrollPane.getViewport().setViewPosition(new Point((int) this.gw.scrollPane.getViewport().getViewPosition().getX() + 10, 0));
 				}
 				if (mario.getIcon().toString()
 						.equals(mario.LITTLESTANDLEFT.toString())) {

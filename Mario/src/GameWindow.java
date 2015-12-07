@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -15,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.Timer;
 
 public class GameWindow extends JFrame implements ActionListener {
@@ -26,6 +28,8 @@ public class GameWindow extends JFrame implements ActionListener {
 	boolean moveLeft, moveRight;
 	Mario mario = new Mario();
 	Timer animateTimer;
+	JScrollPane scrollPane;
+
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -72,6 +76,13 @@ public class GameWindow extends JFrame implements ActionListener {
 //		add(startStage, "start"); // put stage in window
 		// Create a new JPanel
 		GameScreen gameStage = new GameScreen(this);
+		scrollPane = new JScrollPane(gameStage);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		this.getContentPane().add(scrollPane, BorderLayout.CENTER);
+		this.pack();
+		
+		
 	
 		
 
