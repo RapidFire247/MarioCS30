@@ -58,6 +58,9 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			blocks.add(lf);
 			lfTemp += lf.getWidth();
 		}
+		Goomba goomba1 = new Goomba();
+		goomba1.setLocation(500, 600);
+		this.add(goomba1);
 
 		animateTimer = new Timer(1000 / 40, this);
 		animateTimer.setActionCommand("animate");
@@ -77,7 +80,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				if (moveLeft
 						|| mario.getIcon().toString()
 								.equals(mario.LITTLESTANDLEFT.toString())) {
-					if (mario.getX() <= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 4) {
+					if (mario.getX() <= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 4 && this.gw.scrollPane.getViewport().getViewPosition().getX() > 0) {
 						this.gw.scrollPane.getViewport().setViewPosition(new Point((int) this.gw.scrollPane.getViewport().getViewPosition().getX() - 10, 0));
 					}
 					mario.setIcon(mario.LITTLEJUMPLEFT);
@@ -95,8 +98,10 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 			if (moveLeft) {
+				if (mario.getX() > 0) {
 				mario.moveLeft();
-				if (mario.getX() <= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 4) {
+				}
+				if (mario.getX() <= this.gw.scrollPane.getViewport().getViewPosition().getX() + gw.scrollPane.getWidth() / 4 && this.gw.scrollPane.getViewport().getViewPosition().getX() > 0) {
 					this.gw.scrollPane.getViewport().setViewPosition(new Point((int) this.gw.scrollPane.getViewport().getViewPosition().getX() - 10, 0));
 				}
 				if (mario.getIcon().toString()

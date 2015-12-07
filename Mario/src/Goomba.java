@@ -11,6 +11,8 @@ public class Goomba extends Enemies {
 	public static ImageIcon GOOMBALEFT = new ImageIcon(Mario.class.getResource("goombaLeft.png"));
 	
 	public Goomba() {
-		
+		this.setVisible(true);
+		this.setIcon(GOOMBALEFT);
+		this.setSize(32, 32);
 	}
 }

@@ -80,7 +80,6 @@ public class GameWindow extends JFrame implements ActionListener {
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		this.getContentPane().add(scrollPane, BorderLayout.CENTER);
-		this.pack();
 		
 		
 	
