@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 
 public class GameObject extends JLabel {
 	
+	public int speed = 0;
+	
 	/**
 	 * 
 	 */
@@ -15,15 +17,18 @@ public class GameObject extends JLabel {
 	
 	
 	public void moveLeft() {
-		this.setLocation(this.getX() - 10, this.getY());
+		this.setLocation(this.getX() - speed, this.getY());
 	}
 	
 	public void moveRight() {
-		this.setLocation(this.getX() + 10, this.getY());
+		this.setLocation(this.getX() + speed, this.getY());
 	}
 
 	public boolean collidesWith(GameObject g) {
-		return  ((this.getX() <= g.getX() + g.getWidth()) && (this.getY() <= g.getY() + g.getHeight()) 
-				&& (this.getX() + this.getWidth() >= g.getX()) && (this.getY() + this.getHeight() >= g.getY()));
+		// left side right side top bottom
+		return ((this.getX() <= g.getX() + g.getWidth())
+				&& (this.getY() <= g.getY() + g.getHeight())
+				&& (this.getX() + this.getWidth() >= g.getX()) && (this.getY()
+				+ this.getHeight() >= g.getY()));
 	}
 }

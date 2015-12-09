@@ -30,7 +30,6 @@ public class GameWindow extends JFrame implements ActionListener {
 	Timer animateTimer;
 	JScrollPane scrollPane;
 
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -58,32 +57,30 @@ public class GameWindow extends JFrame implements ActionListener {
 		this.pack();
 		getContentPane().setLayout(new CardLayout()); // <- JPanel
 		// Create a new JPanel
-//		JPanel startStage = new JPanel();
-//		startStage.setSize(getWidth(), getHeight());
-//		startStage.setVisible(true);
-//		startStage.setBackground(Color.BLUE);
-//		// Add a button to panel
-//		JButton playButton = new JButton("Play");
-//		playButton.setBackground(Color.CYAN);
-//		playButton.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent arg0) {
-//				((CardLayout) getContentPane().getLayout()).show(
-//						getContentPane(), "game");
-//			}
-//		});
-//		startStage.add(playButton);
-//		add(startStage, "start"); // put stage in window
+		// JPanel startStage = new JPanel();
+		// startStage.setSize(getWidth(), getHeight());
+		// startStage.setVisible(true);
+		// startStage.setBackground(Color.BLUE);
+		// // Add a button to panel
+		// JButton playButton = new JButton("Play");
+		// playButton.setBackground(Color.CYAN);
+		// playButton.addMouseListener(new MouseAdapter() {
+		// @Override
+		// public void mouseClicked(MouseEvent arg0) {
+		// ((CardLayout) getContentPane().getLayout()).show(
+		// getContentPane(), "game");
+		// }
+		// });
+		// startStage.add(playButton);
+		// add(startStage, "start"); // put stage in window
 		// Create a new JPanel
 		GameScreen gameStage = new GameScreen(this);
 		scrollPane = new JScrollPane(gameStage);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane
+				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		this.getContentPane().add(scrollPane, BorderLayout.CENTER);
-		
-		
-	
-		
 
 	}
 
@@ -97,7 +94,7 @@ public class GameWindow extends JFrame implements ActionListener {
 				mario.moveRight();
 			}
 		}
-		
+
 	}
 
 }

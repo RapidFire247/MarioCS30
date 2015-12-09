@@ -1,6 +1,5 @@
 import javax.swing.ImageIcon;
 
-
 public class QuestionBlock extends Block {
 
 	/**

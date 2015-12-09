@@ -1,4 +1,3 @@
-
 public class Block extends Structures {
 
 	/**
@@ -9,6 +8,6 @@ public class Block extends Structures {
 	public Block() {
 		this.setSize(33, 33);
 		this.setVisible(true);
-		
+
 	}
 }

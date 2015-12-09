@@ -2,15 +2,14 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
-
 public class LevelFloorBlock extends Block {
 
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static ImageIcon LEVELFLOORBLOCK = new ImageIcon(LevelFloorBlock.class.getResource("levelFloorBlock.png"));
+	public static ImageIcon LEVELFLOORBLOCK = new ImageIcon(
+			LevelFloorBlock.class.getResource("levelFloorBlock.png"));
 
 	public LevelFloorBlock() {
 		super();

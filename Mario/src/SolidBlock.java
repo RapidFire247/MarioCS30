@@ -1,6 +1,5 @@
 import javax.swing.ImageIcon;
 
-
 public class SolidBlock extends Block {
 
 	/**
@@ -10,7 +9,7 @@ public class SolidBlock extends Block {
 
 	SolidBlock() {
 		super();
-	//	this.setIcon(new ImageIcon(""));
+		// this.setIcon(new ImageIcon(""));
 	}
-	
+
 }
