@@ -16,6 +16,7 @@ public class LevelFloorBlock extends Block {
 		this.setBackground(Color.BLUE);
 		this.setOpaque(true);
 		this.setIcon(LEVELFLOORBLOCK);
+		breakable = false;
 
 	}
 }

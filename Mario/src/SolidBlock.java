@@ -10,6 +10,7 @@ public class SolidBlock extends Block {
 	SolidBlock() {
 		super();
 		// this.setIcon(new ImageIcon(""));
+		breakable = false;
 	}
 
 }

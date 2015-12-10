@@ -35,8 +35,10 @@ public class Mario extends GameObject {
 	boolean isDead;
 	public int jumpStrength = -15;
 	boolean isJumping = true;
+	public int breakBlockSpeed = 20;
 
 	public Mario() {
+		isSuperMario = false;
 		speed = 6;
 		this.setVisible(true);
 		this.setBounds(300, 500, 24, 32);
@@ -50,6 +52,12 @@ public class Mario extends GameObject {
 		}
 		isJumping = true;
 	}
+	
+	
+	
+	public void littleJump() {
+			velocity = -5;
+	}
 
 	public void duck() {
 
@@ -58,5 +66,19 @@ public class Mario extends GameObject {
 	public boolean jumpsOnEnemy(GameObject g) {
 		return ((this.getY() + this.getHeight() >= g.getY() && this.getY() + this.getHeight() < g.getY() + g.getHeight()));
 	}
+	
+	public boolean hitBlock(Block b) {
+		return ((b.getY() + b.getHeight() >= this.getY() && b.getY() + b.getHeight() < this.getY() + this.getHeight()));
+	}
+	
+	public boolean collidesFromSide(Block b) {
+		return (((this.getX() + this.getWidth() >= b.getX() || this.getX() <= b.getX() + b.getWidth())  && (this.getX() + this.getWidth() < b.getX() + b.getWidth() || this.getX() > b.getX())));
+	}
+	
+	public void bounceDown() {
+		velocity = 20;
+	}
+	
+	
 
 }

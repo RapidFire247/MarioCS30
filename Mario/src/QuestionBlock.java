@@ -10,5 +10,6 @@ public class QuestionBlock extends Block {
 	public QuestionBlock() {
 		super();
 		this.setIcon(new ImageIcon("H:\\Mario\\questionBlock.png"));
+		breakable = true;
 	}
 }

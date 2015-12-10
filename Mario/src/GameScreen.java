@@ -21,8 +21,9 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 	Goomba goomba1 = new Goomba();
 	Timer animateTimer, marioIconChangeTimer, animateGoombaTimer;
 	GameWindow gw;
-	private ArrayList<LevelFloorBlock> blocks = new ArrayList<LevelFloorBlock>();
+	private ArrayList<LevelFloorBlock> lfBlocks = new ArrayList<LevelFloorBlock>();
 	private ArrayList<Goomba> goombas = new ArrayList<Goomba>();
+	private ArrayList<BrickBlock> brickBlocks = new ArrayList<BrickBlock>();
 
 	GameScreen(GameWindow gw) {
 		this.gw = gw;
@@ -58,13 +59,18 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 					this.getHeight() - lf.getHeight(), lf.getWidth(),
 					lf.getHeight());
 			this.add(lf);
-			blocks.add(lf);
+			lfBlocks.add(lf);
 			lfTemp += lf.getWidth();
 		}
 		Goomba goomba = new Goomba();
 		goomba.setBounds(500, 600, goomba.getWidth(), goomba.getHeight());
 		this.add(goomba);
 		goombas.add(goomba);
+		BrickBlock brickBlock = new BrickBlock();
+		brickBlock.setBounds(700, 650, brickBlock.getWidth(),
+				brickBlock.getHeight());
+		this.add(brickBlock);
+		brickBlocks.add(brickBlock);
 
 		animateTimer = new Timer(1000 / 40, this);
 		animateTimer.setActionCommand("animate");
@@ -178,21 +184,44 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 												+ goombas.get(j).velocity);
 					}
 				}
+				// check if mario and goombas are colliding with level floor
+				for (int j = 0; j < lfBlocks.size(); j++) {
 
-				for (int j = 0; j < blocks.size(); j++) {
-
-					if (mario.collidesWith(blocks.get(j))) {
+					if (mario.collidesWith(lfBlocks.get(j))) {
 						mario.isJumping = false;
-						mario.setLocation(mario.getX(), blocks.get(j).getY()
+						mario.setLocation(mario.getX(), lfBlocks.get(j).getY()
 								- mario.getHeight());
 					}
 					for (int i = 0; i < goombas.size(); i++) {
-						if (goombas.get(i).collidesWith(blocks.get(j))) {
+						if (goombas.get(i).collidesWith(lfBlocks.get(j))) {
 							goombas.get(i).isJumping = false;
 							goombas.get(i).setLocation(
 									goombas.get(i).getX(),
-									blocks.get(j).getY()
+									lfBlocks.get(j).getY()
 											- goombas.get(i).getHeight());
+						}
+					}
+				}
+				for (int j = 0; j < brickBlocks.size(); j++) {
+					if (brickBlocks.get(j).isVisible()) {
+						if (mario.collidesWith(brickBlocks.get(j))) {
+							if (mario.hitBlock(brickBlocks.get(j))) {
+								brickBlocks.get(j).setVisible(false);
+								mario.bounceDown();
+							} else {
+								mario.isJumping = false;
+								mario.setLocation(mario.getX(), brickBlocks
+										.get(j).getY() - mario.getHeight());
+							}
+						}
+						for (int i = 0; i < goombas.size(); i++) {
+							if (goombas.get(i).collidesWith(brickBlocks.get(j))) {
+								goombas.get(i).isJumping = false;
+								goombas.get(i).setLocation(
+										goombas.get(i).getX(),
+										brickBlocks.get(j).getY()
+												- goombas.get(i).getHeight());
+							}
 						}
 					}
 				}
@@ -211,6 +240,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 								goombas.get(j).setSize(32, 16);
 								goombas.get(j).setIcon(
 										goombas.get(j).GOOMBADEAD);
+								mario.littleJump();
 							} else {
 								mario.isDead = true;
 								mario.setIcon(mario.MARIODEAD);
