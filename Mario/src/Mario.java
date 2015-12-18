@@ -36,6 +36,7 @@ public class Mario extends GameObject {
 	public int jumpStrength = -15;
 	boolean isJumping = true;
 	public int breakBlockSpeed = 20;
+	public Block standingOnBlock = null;
 
 	public Mario() {
 		isSuperMario = false;
@@ -49,36 +50,52 @@ public class Mario extends GameObject {
 	public void jump() {
 		if (isJumping == false) {
 			velocity = jumpStrength;
+			standingOnBlock = null;
 		}
 		isJumping = true;
 	}
-	
-	
-	
+
 	public void littleJump() {
-			velocity = -5;
+		velocity = -5;
 	}
 
 	public void duck() {
 
 	}
 
-	public boolean jumpsOnEnemy(GameObject g) {
-		return ((this.getY() + this.getHeight() >= g.getY() && this.getY() + this.getHeight() < g.getY() + g.getHeight()));
+	public boolean jumpsOnTop(GameObject g) {
+		return (this.getY() + this.getHeight() >= g.getY() && this.getY()
+				+ this.getHeight() < g.getY() + g.getHeight());
 	}
-	
+
 	public boolean hitBlock(Block b) {
-		return ((b.getY() + b.getHeight() >= this.getY() && b.getY() + b.getHeight() < this.getY() + this.getHeight()));
+		if (this.velocity < 0) {
+			return (b.getY() + b.getHeight() >= this.getY() && b.getY()
+					+ b.getHeight() < this.getY() + this.getHeight());
+		} else {
+			return false;
+		}
 	}
-	
-	public boolean collidesFromSide(Block b) {
-		return (((this.getX() + this.getWidth() >= b.getX() || this.getX() <= b.getX() + b.getWidth())  && (this.getX() + this.getWidth() < b.getX() + b.getWidth() || this.getX() > b.getX())));
+
+	/**
+	 * Returns true if mario is colliding with a block from the left side
+	 * 
+	 * @precondition: Mario is colliding with a block
+	 * @param b
+	 * @return
+	 */
+	public boolean collidesFromLeftSide(Block b) {
+		int depth = this.getX() + this.getWidth() - b.getX();
+		return (depth >= 0 && depth < 5);
 	}
-	
+
+	public boolean collidesFromRightSide(Block b) {
+		int depth = b.getX() + b.getWidth() - this.getX();
+		return (depth >= 0 && depth < 5);
+	}
+
 	public void bounceDown() {
 		velocity = 20;
 	}
-	
-	
 
 }

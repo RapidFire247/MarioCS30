@@ -26,7 +26,7 @@ public class GameWindow extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	boolean moveLeft, moveRight;
-	Mario mario = new Mario();
+	public static Mario mario = new Mario();
 	Timer animateTimer;
 	JScrollPane scrollPane;
 

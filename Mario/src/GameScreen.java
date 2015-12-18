@@ -29,7 +29,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		this.gw = gw;
 		this.setLayout(null);
 		this.setSize(10000, gw.getContentPane().getHeight());
-		this.setPreferredSize(new Dimension(10000, gw.getContentPane()
+		this.setPreferredSize(new Dimension(7029, gw.getContentPane()
 				.getHeight()));
 		this.setVisible(true);
 		this.setBackground(Color.CYAN);
@@ -53,21 +53,58 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		});
 		this.add(menuButton);
 		int lfTemp = 0;
-		for (int i = 0; i < 100; i++) {
-			LevelFloorBlock lf = new LevelFloorBlock();
-			lf.setBounds(this.getX() + lfTemp,
-					this.getHeight() - lf.getHeight(), lf.getWidth(),
-					lf.getHeight());
-			this.add(lf);
-			lfBlocks.add(lf);
-			lfTemp += lf.getWidth();
+		int lfBlocksMade = 0;
+		for (int i = 0; i < 219; i++) {
+			if (lfBlocksMade <= 69) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfTemp += lf.getWidth();
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 69 && lfBlocksMade <= 71) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 71 && lfBlocksMade <= 86) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfTemp += lf.getWidth();
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 86 && lfBlocksMade <= 89) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 89 && lfBlocksMade <= 153) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfTemp += lf.getWidth();
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 153 && lfBlocksMade <= 155) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 155 && lfBlocksMade <= 213) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfTemp += lf.getWidth();
+				lfBlocksMade++;
+			}
 		}
 		Goomba goomba = new Goomba();
 		goomba.setBounds(500, 600, goomba.getWidth(), goomba.getHeight());
 		this.add(goomba);
 		goombas.add(goomba);
 		BrickBlock brickBlock = new BrickBlock();
-		brickBlock.setBounds(700, 650, brickBlock.getWidth(),
+		brickBlock.setBounds(700, 675, brickBlock.getWidth(),
 				brickBlock.getHeight());
 		this.add(brickBlock);
 		brickBlocks.add(brickBlock);
@@ -75,7 +112,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		animateTimer = new Timer(1000 / 40, this);
 		animateTimer.setActionCommand("animate");
 		animateTimer.start();
-		marioIconChangeTimer = new Timer(1000 / 10, this);
+		marioIconChangeTimer = new Timer(1000 / 2, this);
 		marioIconChangeTimer.setActionCommand("marioIconChange");
 		marioIconChangeTimer.start();
 		animateGoombaTimer = new Timer(1000 / 5, this);
@@ -185,12 +222,16 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 					}
 				}
 				// check if mario and goombas are colliding with level floor
+				mario.standingOnBlock = null;
 				for (int j = 0; j < lfBlocks.size(); j++) {
-
-					if (mario.collidesWith(lfBlocks.get(j))) {
-						mario.isJumping = false;
-						mario.setLocation(mario.getX(), lfBlocks.get(j).getY()
-								- mario.getHeight());
+					if (mario.standingOnBlock == null) {
+						if (mario.collidesWith(lfBlocks.get(j))) {
+							mario.isJumping = false;
+							mario.setLocation(mario.getX(), lfBlocks.get(j)
+									.getY() - mario.getHeight());
+							mario.standingOnBlock = lfBlocks.get(j);
+							// System.out.println(mario.standingOnBlock);
+						}
 					}
 					for (int i = 0; i < goombas.size(); i++) {
 						if (goombas.get(i).collidesWith(lfBlocks.get(j))) {
@@ -205,13 +246,27 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				for (int j = 0; j < brickBlocks.size(); j++) {
 					if (brickBlocks.get(j).isVisible()) {
 						if (mario.collidesWith(brickBlocks.get(j))) {
-							if (mario.hitBlock(brickBlocks.get(j))) {
+							if (mario.jumpsOnTop(brickBlocks.get(j))) {
+								mario.setLocation(mario.getX(), brickBlocks
+										.get(j).getY() - mario.getHeight());
+								mario.isJumping = false;
+								mario.standingOnBlock = brickBlocks.get(j);
+							} else if (mario.collidesFromLeftSide(brickBlocks
+									.get(j))) {
+								mario.setLocation(brickBlocks.get(j).getX()
+										- mario.getWidth(), mario.getY());
+								// mario.standingOnBlock = brickBlocks.get(j);
+							} else if (mario.collidesFromRightSide(brickBlocks
+									.get(j))) {
+								mario.setLocation(brickBlocks.get(j).getX()
+										+ brickBlocks.get(j).getWidth(),
+										mario.getY());
+								// mario.standingOnBlock = brickBlocks.get(j);
+							} else if (mario.hitBlock(brickBlocks.get(j))) {
 								brickBlocks.get(j).setVisible(false);
 								mario.bounceDown();
 							} else {
-								mario.isJumping = false;
-								mario.setLocation(mario.getX(), brickBlocks
-										.get(j).getY() - mario.getHeight());
+
 							}
 						}
 						for (int i = 0; i < goombas.size(); i++) {
@@ -226,16 +281,13 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 					}
 				}
 				// apply gravity
-				if (mario.isJumping) {
-					mario.velocity += GameObject.GRAVITY;
-				}
 				for (int j = 0; j < goombas.size(); j++) {
 					if (goombas.get(j).isJumping) {
 						goombas.get(j).velocity += GameObject.GRAVITY;
 					}
 					if (mario.collidesWith(goombas.get(j))) {
 						if (!goombas.get(j).isDead) {
-							if (mario.jumpsOnEnemy(goombas.get(j))) {
+							if (mario.jumpsOnTop(goombas.get(j))) {
 								goombas.get(j).isDead = true;
 								goombas.get(j).setSize(32, 16);
 								goombas.get(j).setIcon(
@@ -251,7 +303,19 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 						goombas.get(j).moveLeft();
 					}
 				}
-
+				System.out.println(mario.isJumping);
+				System.out.println(mario.getIcon().toString());
+				System.out.println(mario.standingOnBlock);
+				
+				if (mario.standingOnBlock != null) {
+					mario.velocity = 0;
+					mario.isJumping = false;
+				} else {
+					mario.isJumping = true;
+				}
+				if (mario.isJumping) {
+					mario.velocity += GameObject.GRAVITY;
+				}
 			}
 		}
 		if (e.getActionCommand().equals("marioIconChange")) {
@@ -261,6 +325,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 						// System.out.println("moving left");
 						// System.out.println(mario.getIcon().toString());
 						// System.out.println(mario.LITTLESTANDLEFT);
+						System.out.println(mario.getIcon().toString());
 						if (mario.getIcon().toString()
 								.equals(mario.LITTLESTANDLEFT.toString())
 								|| mario.getIcon()
@@ -269,21 +334,26 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 							// changes to littlestartwalkleft
 							mario.setIcon(mario.LITTLESTARTWALKLEFT);
 							mario.setSize(24, 32);
+							System.out.println("start");
 						} else if (mario.getIcon().toString()
 								.equals(mario.LITTLESTARTWALKLEFT.toString())) {
 							// changes to littlemidwalkleft1
 							mario.setIcon(mario.LITTLEMIDWALKLEFT1);
 							mario.setSize(22, 30);
+							System.out.println("mid");
+							// System.out.println(mario.LITTLEMIDWALKLEFT1.toString());
 						} else if (mario.getIcon().toString()
 								.equals(mario.LITTLEMIDWALKLEFT1.toString())) {
 							// changes to littlemidwalkleft2
 							mario.setIcon(mario.LITTLEMIDWALKLEFT2);
 							mario.setSize(32, 32);
+							System.out.println("mid2");
 						} else if (mario.getIcon().toString()
 								.equals(mario.LITTLEMIDWALKLEFT2.toString())) {
 							// changes back to littlestartwalkleft
 							mario.setIcon(mario.LITTLESTARTWALKLEFT);
 							mario.setSize(24, 32);
+							System.out.println("start2");
 						}
 					}
 					if (moveRight) {
@@ -348,7 +418,6 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			// stop moving
 			if (e.getKeyCode() == KeyEvent.VK_A) {
 				moveLeft = false;
-				System.out.println("key released");
 				mario.setIcon(mario.LITTLESTANDLEFT);
 				mario.setSize(24, 32);
 			} else if (e.getKeyCode() == KeyEvent.VK_D) {
