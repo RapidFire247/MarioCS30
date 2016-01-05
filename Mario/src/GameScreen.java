@@ -354,12 +354,12 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		for (int i = 0; i < 219; i++) {
 			if (i == 21 || i == 23 || i == 25 || i == 78 || i == 80 || i == 95 || i == 101 || i == 102 || i == 119 || (i >= 130 && i <= 131) || i == 169 || i == 170 || i == 172) {
 				BrickBlock BB = new BrickBlock();
-				BB.setBounds(this.getX() + (33 * i), this.getHeight() - (4 * 33), BB.getWidth(), BB.getHeight());
+				BB.setBounds(this.getX() + (33 * i), this.getHeight() - (5 * 33), BB.getWidth(), BB.getHeight());
 				this.add(BB);
 				brickBlocks.add(BB);
 			} else if ((i >= 81 && i <= 88) || (i >= 92 && i <= 94) || (i >= 122 && i <= 124) || i == 129 || i == 132) {
 				BrickBlock BB = new BrickBlock();
-				BB.setBounds(this.getX() + (33 * i), this.getHeight() - (8 * 33), BB.getWidth(), BB.getHeight());
+				BB.setBounds(this.getX() + (33 * i), this.getHeight() - (9 * 33), BB.getWidth(), BB.getHeight());
 				this.add(BB);
 				brickBlocks.add(BB);
 			}

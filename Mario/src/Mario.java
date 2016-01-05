@@ -33,7 +33,7 @@ public class Mario extends GameObject {
 	boolean isSuperMario;
 	boolean isFireMario;
 	boolean isDead;
-	public int jumpStrength = -15;
+	public int jumpStrength = -17;
 	boolean isJumping = true;
 	public int breakBlockSpeed = 20;
 	public Block standingOnBlock = null;
