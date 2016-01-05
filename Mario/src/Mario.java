@@ -40,7 +40,7 @@ public class Mario extends GameObject {
 
 	public Mario() {
 		isSuperMario = false;
-		speed = 6;
+		speed = 5;
 		this.setVisible(true);
 		this.setBounds(300, 500, 24, 32);
 		this.setIcon(LITTLESTANDRIGHT);

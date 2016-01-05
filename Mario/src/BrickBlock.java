@@ -6,10 +6,16 @@ public class BrickBlock extends Block {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	public static ImageIcon BRICKBLOCK = new ImageIcon(
+			BrickBlock.class.getResource("brickBlock.png"));
+
 	public BrickBlock() {
 		super();
 		breakable = true;
-		this.setIcon(new ImageIcon("H:\\Mario\\brickBlock.png"));
+		this.setIcon(BRICKBLOCK);
+	}
+	
+	public void createBrickBlocks() {
+		
 	}
 }

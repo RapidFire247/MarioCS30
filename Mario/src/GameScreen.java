@@ -21,7 +21,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 	Goomba goomba1 = new Goomba();
 	Timer animateTimer, marioIconChangeTimer, animateGoombaTimer;
 	GameWindow gw;
-	private ArrayList<LevelFloorBlock> lfBlocks = new ArrayList<LevelFloorBlock>();
+	public static ArrayList<LevelFloorBlock> lfBlocks = new ArrayList<LevelFloorBlock>();
 	private ArrayList<Goomba> goombas = new ArrayList<Goomba>();
 	private ArrayList<BrickBlock> brickBlocks = new ArrayList<BrickBlock>();
 
@@ -52,63 +52,12 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			}
 		});
 		this.add(menuButton);
-		int lfTemp = 0;
-		int lfBlocksMade = 0;
-		for (int i = 0; i < 219; i++) {
-			if (lfBlocksMade <= 69) {
-				LevelFloorBlock lf = new LevelFloorBlock();
-				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
-						this.getHeight() - lf.getHeight(), lf.getWidth(),
-						lf.getHeight());
-				this.add(lf);
-				lfBlocks.add(lf);
-				lfTemp += lf.getWidth();
-				lfBlocksMade++;
-			} else if (lfBlocksMade > 69 && lfBlocksMade <= 71) {
-				lfBlocksMade++;
-			} else if (lfBlocksMade > 71 && lfBlocksMade <= 86) {
-				LevelFloorBlock lf = new LevelFloorBlock();
-				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
-						this.getHeight() - lf.getHeight(), lf.getWidth(),
-						lf.getHeight());
-				this.add(lf);
-				lfBlocks.add(lf);
-				lfTemp += lf.getWidth();
-				lfBlocksMade++;
-			} else if (lfBlocksMade > 86 && lfBlocksMade <= 89) {
-				lfBlocksMade++;
-			} else if (lfBlocksMade > 89 && lfBlocksMade <= 153) {
-				LevelFloorBlock lf = new LevelFloorBlock();
-				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
-						this.getHeight() - lf.getHeight(), lf.getWidth(),
-						lf.getHeight());
-				this.add(lf);
-				lfBlocks.add(lf);
-				lfTemp += lf.getWidth();
-				lfBlocksMade++;
-			} else if (lfBlocksMade > 153 && lfBlocksMade <= 155) {
-				lfBlocksMade++;
-			} else if (lfBlocksMade > 155 && lfBlocksMade <= 213) {
-				LevelFloorBlock lf = new LevelFloorBlock();
-				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
-						this.getHeight() - lf.getHeight(), lf.getWidth(),
-						lf.getHeight());
-				this.add(lf);
-				lfBlocks.add(lf);
-				lfTemp += lf.getWidth();
-				lfBlocksMade++;
-			}
-		}
+		createLevelFloor();
+		createBrickBlocks();
 		Goomba goomba = new Goomba();
 		goomba.setBounds(500, 600, goomba.getWidth(), goomba.getHeight());
 		this.add(goomba);
 		goombas.add(goomba);
-		BrickBlock brickBlock = new BrickBlock();
-		brickBlock.setBounds(700, 675, brickBlock.getWidth(),
-				brickBlock.getHeight());
-		this.add(brickBlock);
-		brickBlocks.add(brickBlock);
-
 		animateTimer = new Timer(1000 / 40, this);
 		animateTimer.setActionCommand("animate");
 		animateTimer.start();
@@ -396,6 +345,68 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 					}
 
 				}
+			}
+		}
+	}
+	
+	public void createBrickBlocks() {
+		int brickBlocksMade = 0;
+		for (int i = 0; i < 219; i++) {
+			if (i == 21 || i == 23 || i == 25 || i == 78 || i == 80 || i == 95 || i == 101 || i == 102 || i == 119 || (i >= 130 && i <= 131) || i == 169 || i == 170 || i == 172) {
+				BrickBlock BB = new BrickBlock();
+				BB.setBounds(this.getX() + (33 * i), this.getHeight() - (4 * 33), BB.getWidth(), BB.getHeight());
+				this.add(BB);
+				brickBlocks.add(BB);
+			} else if ((i >= 81 && i <= 88) || (i >= 92 && i <= 94) || (i >= 122 && i <= 124) || i == 129 || i == 132) {
+				BrickBlock BB = new BrickBlock();
+				BB.setBounds(this.getX() + (33 * i), this.getHeight() - (8 * 33), BB.getWidth(), BB.getHeight());
+				this.add(BB);
+				brickBlocks.add(BB);
+			}
+		}
+	}
+	
+	public void createLevelFloor() {
+		int lfBlocksMade = 0;
+		for (int i = 0; i < 219; i++) {
+			if (lfBlocksMade <= 69) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 69 && lfBlocksMade <= 71) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 71 && lfBlocksMade <= 86) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 86 && lfBlocksMade <= 89) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 89 && lfBlocksMade <= 153) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 153 && lfBlocksMade <= 155) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 155 && lfBlocksMade <= 213) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - lf.getHeight(), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
 			}
 		}
 	}
