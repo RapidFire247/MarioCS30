@@ -9,8 +9,8 @@ public class QuestionBlock extends Block {
 	boolean isOn;
 	public static ImageIcon QUESTIONBLOCK = new ImageIcon(
 			QuestionBlock.class.getResource("questionBlock.png"));
-//	public static ImageIcon SOLIDBLOCK = new ImageIcon(
-//			QuestionBlock.class.getResource("solidBlock.png"));
+	public static ImageIcon SOLIDBLOCK = new ImageIcon(
+			QuestionBlock.class.getResource("solidBlock.png"));
 
 
 	public QuestionBlock() {
@@ -20,7 +20,8 @@ public class QuestionBlock extends Block {
 		isOn = true;
 	}
 	
-//	public void changeImageToSolidBlock() {
-//		this.setIcon(SOLIDBLOCK);
-//	}
+	public void changeImageToSolidBlock() {
+		this.setIcon(SOLIDBLOCK);
+		breakable = false;
+	}
 }

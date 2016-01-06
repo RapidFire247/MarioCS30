@@ -10,4 +10,6 @@ public class Block extends Structures {
 		this.setVisible(true);
 
 	}
+	
+	
 }

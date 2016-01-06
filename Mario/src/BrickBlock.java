@@ -15,7 +15,4 @@ public class BrickBlock extends Block {
 		this.setIcon(BRICKBLOCK);
 	}
 	
-	public void createBrickBlocks() {
-		
-	}
 }
