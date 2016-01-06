@@ -317,43 +317,6 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 
-	private void checkCollisionWithBrickBlock() {
-		for (int j = 0; j < brickBlocks.size(); j++) {
-			if (brickBlocks.get(j).isVisible()) {
-				if (mario.collidesWith(brickBlocks.get(j))) {
-					if (mario.jumpsOnTop(brickBlocks.get(j))) {
-						mario.setLocation(mario.getX(), brickBlocks.get(j)
-								.getY() - mario.getHeight());
-						mario.isJumping = false;
-						mario.standingOnBlock = brickBlocks.get(j);
-					} else if (mario.collidesFromLeftSide(brickBlocks.get(j))) {
-						mario.setLocation(
-								brickBlocks.get(j).getX() - mario.getWidth(),
-								mario.getY());
-						// mario.standingOnBlock = brickBlocks.get(j);
-					} else if (mario.collidesFromRightSide(brickBlocks.get(j))) {
-						mario.setLocation(brickBlocks.get(j).getX()
-								+ brickBlocks.get(j).getWidth(), mario.getY());
-						// mario.standingOnBlock = brickBlocks.get(j);
-					} else if (mario.hitBlock(brickBlocks.get(j))) {
-						brickBlocks.get(j).setVisible(false);
-						mario.bounceDown();
-					} else {
-
-					}
-				}
-				for (int i = 0; i < goombas.size(); i++) {
-					if (goombas.get(i).collidesWith(brickBlocks.get(j))) {
-						goombas.get(i).isJumping = false;
-						goombas.get(i).setLocation(
-								goombas.get(i).getX(),
-								brickBlocks.get(j).getY()
-										- goombas.get(i).getHeight());
-					}
-				}
-			}
-		}
-	}
 
 	public void createBrickBlocks() {
 		int brickBlocksMade = 0;
@@ -364,14 +327,14 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 					|| i == 172) {
 				BrickBlock BB = new BrickBlock();
 				BB.setBounds(this.getX() + (33 * i), this.getHeight()
-						- (5 * 33), BB.getWidth(), BB.getHeight());
+						- (6 * 33), BB.getWidth(), BB.getHeight());
 				this.add(BB);
 				brickBlocks.add(BB);
 			} else if ((i >= 81 && i <= 88) || (i >= 92 && i <= 94)
 					|| (i >= 122 && i <= 124) || i == 129 || i == 132) {
 				BrickBlock BB = new BrickBlock();
 				BB.setBounds(this.getX() + (33 * i), this.getHeight()
-						- (9 * 33), BB.getWidth(), BB.getHeight());
+						- (10 * 33), BB.getWidth(), BB.getHeight());
 				this.add(BB);
 				brickBlocks.add(BB);
 			}
@@ -385,24 +348,24 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 					|| i == 113 || i == 171) {
 				QuestionBlock QB = new QuestionBlock();
 				QB.setBounds(this.getX() + (33 * i), this.getHeight()
-						- (5 * 33), QB.getWidth(), QB.getHeight());
+						- (6 * 33), QB.getWidth(), QB.getHeight());
 				this.add(QB);
 				questionBlocks.add(QB);
 			} else if (i == 23 || i == 95 || i == 130 || i == 131) {
 				QuestionBlock QB = new QuestionBlock();
 				QB.setBounds(this.getX() + (33 * i), this.getHeight()
-						- (9 * 33), QB.getWidth(), QB.getHeight());
+						- (10 * 33), QB.getWidth(), QB.getHeight());
 				this.add(QB);
 				questionBlocks.add(QB);
 			} else if (i == 110) {
 				QuestionBlock QB = new QuestionBlock();
 				QB.setBounds(this.getX() + (33 * i), this.getHeight()
-						- (5 * 33), QB.getWidth(), QB.getHeight());
+						- (6 * 33), QB.getWidth(), QB.getHeight());
 				this.add(QB);
 				questionBlocks.add(QB);
 				QuestionBlock QB2 = new QuestionBlock();
 				QB2.setBounds(this.getX() + (33 * i), this.getHeight()
-						- (9 * 33), QB2.getWidth(), QB2.getHeight());
+						- (10 * 33), QB2.getWidth(), QB2.getHeight());
 				this.add(QB2);
 				questionBlocks.add(QB2);
 			}
@@ -452,11 +415,91 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 				lfBlocksMade++;
 			}
 		}
+		lfBlocksMade = 0;
+		for (int i = 0; i < 219; i++) {
+			if (lfBlocksMade <= 69) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - (2 * lf.getHeight()), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 69 && lfBlocksMade <= 71) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 71 && lfBlocksMade <= 86) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - (2 * lf.getHeight()), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 86 && lfBlocksMade <= 89) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 89 && lfBlocksMade <= 153) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - (2 * lf.getHeight()), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 153 && lfBlocksMade <= 155) {
+				lfBlocksMade++;
+			} else if (lfBlocksMade > 155 && lfBlocksMade <= 213) {
+				LevelFloorBlock lf = new LevelFloorBlock();
+				lf.setBounds(this.getX() + (lfBlocksMade * lf.getWidth()),
+						this.getHeight() - (2 * lf.getHeight()), lf.getWidth(),
+						lf.getHeight());
+				this.add(lf);
+				lfBlocks.add(lf);
+				lfBlocksMade++;
+			}
+		}
+	}
+	
+	private void checkCollisionWithBrickBlock() {
+		for (int j = 0; j < brickBlocks.size(); j++) {
+			if (brickBlocks.get(j).isVisible()) {
+				if (mario.collidesWith(brickBlocks.get(j))) {
+					if (mario.jumpsOnTop(brickBlocks.get(j))) {
+						mario.setLocation(mario.getX(), brickBlocks.get(j)
+								.getY() - mario.getHeight());
+						mario.isJumping = false;
+						mario.standingOnBlock = brickBlocks.get(j);
+					} else if (mario.collidesFromLeftSide(brickBlocks.get(j))) {
+						mario.setLocation(
+								brickBlocks.get(j).getX() - mario.getWidth(),
+								mario.getY());
+						// mario.standingOnBlock = brickBlocks.get(j);
+					} else if (mario.collidesFromRightSide(brickBlocks.get(j))) {
+						mario.setLocation(brickBlocks.get(j).getX()
+								+ brickBlocks.get(j).getWidth(), mario.getY());
+						// mario.standingOnBlock = brickBlocks.get(j);
+					} else if (mario.hitBlock(brickBlocks.get(j))) {
+						brickBlocks.get(j).setVisible(false);
+						mario.bounceDown();
+					} else {
+						
+					}
+				}
+				for (int i = 0; i < goombas.size(); i++) {
+					if (goombas.get(i).collidesWith(brickBlocks.get(j))) {
+						goombas.get(i).isJumping = false;
+						goombas.get(i).setLocation(
+								goombas.get(i).getX(),
+								brickBlocks.get(j).getY()
+								- goombas.get(i).getHeight());
+					}
+				}
+			}
+		}
 	}
 
 	public void checkCollisionWithQuestionBlock() {
 		for (int j = 0; j < questionBlocks.size(); j++) {
-			if (questionBlocks.get(j).isVisible()) {
+				if (questionBlocks.get(j).isOn) {
 				if (mario.collidesWith(questionBlocks.get(j))) {
 					if (mario.jumpsOnTop(questionBlocks.get(j))) {
 						mario.setLocation(mario.getX(), questionBlocks.get(j)
@@ -475,7 +518,10 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 								+ brickBlocks.get(j).getWidth(), mario.getY());
 						// mario.standingOnBlock = brickBlocks.get(j);
 					} else if (mario.hitBlock(questionBlocks.get(j))) {
-						questionBlocks.get(j).setVisible(false);
+						if (questionBlocks.get(j).isOn) {
+							questionBlocks.get(j).isOn = false;
+							
+						}
 						mario.bounceDown();
 					} else {
 
