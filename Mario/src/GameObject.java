@@ -25,10 +25,24 @@ public class GameObject extends JLabel {
 	}
 
 	public boolean collidesWith(GameObject g) {
-		// left side right side top bottom
 		return ((this.getX() <= g.getX() + g.getWidth())
 				&& (this.getY() <= g.getY() + g.getHeight())
 				&& (this.getX() + this.getWidth() >= g.getX()) && (this.getY()
 				+ this.getHeight() >= g.getY()));
+	}
+	
+	public boolean collidesFromLeftSide(Block b) {
+		int depth = this.getX() + this.getWidth() - b.getX();
+		return (depth >= 0 && depth < 5);
+	}
+
+	public boolean collidesFromRightSide(Block b) {
+		int depth = b.getX() + b.getWidth() - this.getX();
+		return (depth >= 0 && depth < 5);
+	}
+	
+	public boolean jumpsOnTop(GameObject g) {
+		return (this.getY() + this.getHeight() >= g.getY() && this.getY()
+				+ this.getHeight() < g.getY() + g.getHeight());
 	}
 }

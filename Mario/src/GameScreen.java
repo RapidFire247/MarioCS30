@@ -58,10 +58,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		createBrickBlocks();
 		createQuestionBlocks();
 		createStairBlocks();
-		Goomba goomba = new Goomba();
-		goomba.setBounds(500, 600, goomba.getWidth(), goomba.getHeight());
-		this.add(goomba);
-		goombas.add(goomba);
+		createGoombas();
 		animateTimer = new Timer(1000 / 40, this);
 		animateTimer.setActionCommand("animate");
 		animateTimer.start();
@@ -219,12 +216,16 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 						}
 					}
 					if (!goombas.get(j).isDead) {
-						goombas.get(j).moveLeft();
+						if (goombas.get(j).direction) {
+							goombas.get(j).moveLeft();
+						} else if (!goombas.get(j).direction) {
+							goombas.get(j).moveRight();
+						}
 					}
 				}
-//				System.out.println(mario.isJumping);
-//				System.out.println(mario.getIcon().toString());
-//				System.out.println(mario.standingOnBlock);
+				// System.out.println(mario.isJumping);
+				// System.out.println(mario.getIcon().toString());
+				// System.out.println(mario.standingOnBlock);
 
 				if (mario.standingOnBlock != null) {
 					mario.velocity = 0;
@@ -377,7 +378,8 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		int blocksMade = 0;
 		for (int i = 0; i < height; i++) {
 			StairBlock sb = new StairBlock();
-			sb.setBounds(x, this.getHeight() - ((3 + blocksMade) * sb.getHeight()),
+			sb.setBounds(x,
+					this.getHeight() - ((3 + blocksMade) * sb.getHeight()),
 					sb.getWidth(), sb.getHeight());
 			this.add(sb);
 			stairBlocks.add(sb);
@@ -394,14 +396,62 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 			}
 		} else {
 			int towersMade = 0;
-			for (int i = endHeight; i <= startHeight; i++) {
-				buildBlockTower(x + (towersMade * 33), i);
+			for (int i = startHeight; i >= endHeight; i--) {
+				buildBlockTower((x * 33) + (towersMade * 33), i);
+				towersMade++;
 			}
 		}
 	}
-	
+
 	public void createStairBlocks() {
-		createStair(33, 1, 3);
+		createStair(135, 1, 4);
+		createStair(141, 4, 1);
+		createStair(149, 1, 4);
+		createStair(153, 4, 4);
+		createStair(156, 4, 1);
+		createStair(182, 1, 8);
+		createStair(190, 8, 8);
+		//                        |
+		// substitute for pipes   v
+		createStair(29, 2, 2);
+		createStair(30, 2, 2);
+		createStair(39, 3, 3);
+		createStair(40, 3, 3);
+		createStair(47, 4, 4);
+		createStair(48, 4, 4);
+		createStair(58, 4, 4);
+		createStair(59, 4, 4);
+		createStair(164, 2, 2);
+		createStair(165, 2, 2);
+		createStair(180, 2, 2);
+		createStair(181, 2, 2);
+	}
+
+	public void createGoombas() {
+		makeGoomba(23, 3);
+		makeGoomba(41, 3);
+		makeGoomba(51, 3);
+		makeGoomba(53, 3);
+		makeGoomba(97, 3);
+		makeGoomba(99, 3);
+		makeGoomba(115, 3);
+		makeGoomba(117, 3);
+		makeGoomba(125, 3);
+		makeGoomba(127, 3);
+		makeGoomba(130, 3);
+		makeGoomba(132, 3);
+		makeGoomba(175, 3);
+		makeGoomba(177, 3);
+		makeGoomba(81, 10);
+		makeGoomba(83, 10);
+	}
+
+	public void makeGoomba(int x, int y) {
+		Goomba goomba = new Goomba();
+		goomba.setBounds((x * 33), this.getHeight() - (y * 33),
+				goomba.getWidth(), goomba.getHeight());
+		this.add(goomba);
+		goombas.add(goomba);
 	}
 
 	public void createLevelFloor() {
@@ -540,33 +590,40 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 						mario.standingOnBlock = stairBlocks.get(j);
 					} else if (mario.collidesFromLeftSide(stairBlocks.get(j))) {
 						mario.setLocation(
-								stairBlocks.get(j).getX() - (mario.getWidth() + 3),
-								mario.getY());
+								stairBlocks.get(j).getX()
+										- (mario.getWidth() + 3), mario.getY());
 						System.out.println("left");
 						// mario.standingOnBlock = brickBlocks.get(j);
 					} else if (mario.collidesFromRightSide(stairBlocks.get(j))) {
 						mario.setLocation(stairBlocks.get(j).getX()
-								+ stairBlocks.get(j).getWidth(), mario.getY());
+								+ stairBlocks.get(j).getWidth() + 3,
+								mario.getY());
 						// mario.standingOnBlock = brickBlocks.get(j);
 					} else if (mario.hitBlock(stairBlocks.get(j))) {
 						mario.bounceDown();
 					} else {
-						
+
 					}
 				}
 				for (int i = 0; i < goombas.size(); i++) {
-					if (goombas.get(i).collidesWith(brickBlocks.get(j))) {
-						goombas.get(i).isJumping = false;
-						goombas.get(i).setLocation(
-								goombas.get(i).getX(),
-								brickBlocks.get(j).getY()
-								- goombas.get(i).getHeight());
+					if (goombas.get(i).collidesWith(stairBlocks.get(j))) {
+						if (goombas.get(i).jumpsOnTop(stairBlocks.get(j))) {
+							goombas.get(i).isJumping = false;
+							goombas.get(i).setLocation(
+									goombas.get(i).getX(),
+									stairBlocks.get(j).getY()
+											- goombas.get(i).getHeight());
+						} else if (goombas.get(i).collidesFromLeftSide(stairBlocks.get(j))) {
+							goombas.get(i).direction = false;
+						} else if (goombas.get(i).collidesFromRightSide(stairBlocks.get(j))) {
+							goombas.get(i).direction = true;
+						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	public void checkCollisionWithQuestionBlock() {
 		for (int j = 0; j < questionBlocks.size(); j++) {
 			if (questionBlocks.get(j).isOn) {

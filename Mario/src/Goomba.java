@@ -12,6 +12,7 @@ public class Goomba extends Enemies {
 			Mario.class.getResource("goombaLeft.png"));
 	public static ImageIcon GOOMBADEAD = new ImageIcon(
 			Mario.class.getResource("goombaDead.png"));
+	boolean direction = true;
 
 	public Goomba() {
 		speed = 3;
@@ -19,5 +20,7 @@ public class Goomba extends Enemies {
 		this.setIcon(GOOMBALEFT);
 		this.setSize(32, 32);
 	}
+	
+
 
 }

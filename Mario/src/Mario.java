@@ -63,10 +63,7 @@ public class Mario extends GameObject {
 
 	}
 
-	public boolean jumpsOnTop(GameObject g) {
-		return (this.getY() + this.getHeight() >= g.getY() && this.getY()
-				+ this.getHeight() < g.getY() + g.getHeight());
-	}
+
 
 	public boolean hitBlock(Block b) {
 		if (this.velocity < 0) {
@@ -84,15 +81,7 @@ public class Mario extends GameObject {
 	 * @param b
 	 * @return
 	 */
-	public boolean collidesFromLeftSide(Block b) {
-		int depth = this.getX() + this.getWidth() - b.getX();
-		return (depth >= 0 && depth < 5);
-	}
 
-	public boolean collidesFromRightSide(Block b) {
-		int depth = b.getX() + b.getWidth() - this.getX();
-		return (depth >= 0 && depth < 5);
-	}
 
 	public void bounceDown() {
 		velocity = 20;
