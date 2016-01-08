@@ -216,12 +216,17 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 						}
 					}
 					if (!goombas.get(j).isDead) {
-						if (goombas.get(j).direction) {
+						if (!goombas.get(j).direction) {
 							goombas.get(j).moveLeft();
-						} else if (!goombas.get(j).direction) {
+						} else {
 							goombas.get(j).moveRight();
 						}
 					}
+				}
+
+				if (mario.getY() > this.getHeight()) {
+
+					mario.isDead = true;
 				}
 				// System.out.println(mario.isJumping);
 				// System.out.println(mario.getIcon().toString());
@@ -411,8 +416,8 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 		createStair(156, 4, 1);
 		createStair(182, 1, 8);
 		createStair(190, 8, 8);
-		//                        |
-		// substitute for pipes   v
+		// |
+		// substitute for pipes v
 		createStair(29, 2, 2);
 		createStair(30, 2, 2);
 		createStair(39, 3, 3);
@@ -429,7 +434,7 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 
 	public void createGoombas() {
 		makeGoomba(23, 3);
-		makeGoomba(41, 3);
+		makeGoomba(41, 2);
 		makeGoomba(51, 3);
 		makeGoomba(53, 3);
 		makeGoomba(97, 3);
@@ -560,7 +565,9 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 								+ brickBlocks.get(j).getWidth(), mario.getY());
 						// mario.standingOnBlock = brickBlocks.get(j);
 					} else if (mario.hitBlock(brickBlocks.get(j))) {
-						brickBlocks.get(j).setVisible(false);
+						if (mario.isSuperMario) {
+							brickBlocks.get(j).setVisible(false);
+						}
 						mario.bounceDown();
 					} else {
 
@@ -592,7 +599,6 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 						mario.setLocation(
 								stairBlocks.get(j).getX()
 										- (mario.getWidth() + 3), mario.getY());
-						System.out.println("left");
 						// mario.standingOnBlock = brickBlocks.get(j);
 					} else if (mario.collidesFromRightSide(stairBlocks.get(j))) {
 						mario.setLocation(stairBlocks.get(j).getX()
@@ -613,9 +619,11 @@ public class GameScreen extends JPanel implements ActionListener, KeyListener {
 									goombas.get(i).getX(),
 									stairBlocks.get(j).getY()
 											- goombas.get(i).getHeight());
-						} else if (goombas.get(i).collidesFromLeftSide(stairBlocks.get(j))) {
+						} else if (goombas.get(i).collidesFromLeftSide(
+								stairBlocks.get(j))) {
 							goombas.get(i).direction = false;
-						} else if (goombas.get(i).collidesFromRightSide(stairBlocks.get(j))) {
+						} else if (goombas.get(i).collidesFromRightSide(
+								stairBlocks.get(j))) {
 							goombas.get(i).direction = true;
 						}
 					}
